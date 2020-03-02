@@ -1,11 +1,8 @@
 language: java
 
-cache:
-  directories:
-  - $HOME/.m2
+sudo: false
 
 after_success:
-  export CODECOV_TOKEN="token"
 - bash <(curl -s https://codecov.io/bash)
 
 notifications:
@@ -14,3 +11,7 @@ notifications:
     - the.na4ig@gmail.com
     on_success: never
     on_failure: always
+
+env:
+  global:
+   - CODECOV_TOKEN="d8c85250-acc9-4ae1-8c68-00eb52deb024"
