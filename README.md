@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/alex-skorikov/Unit.svg?branch=master)](https://travis-ci.org/alex-skorikov/Unit)
 [![codecov](https://codecov.io/gh/alex-skorikov/Unit/branch/master/graph/badge.svg)](https://codecov.io/gh/alex-skorikov/Unit)
 
 
