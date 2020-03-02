@@ -8,12 +8,4 @@ import java.util.List;
 public interface UnitRepository extends JpaRepository<Unit, Integer> {
 
     Unit findUnitById(Integer id);
-
-    @Override
-    <S extends Unit> List<S> saveAll(Iterable<S> iterable);
-
-    @Override
-    List<Unit> findAll();
-
-
 }

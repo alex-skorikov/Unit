@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.skorikov.domain.Unit;
-import ru.skorikov.repository.UnitRepository;
+import ru.skorikov.service.UnitService;
 
 import java.util.Map;
 
@@ -16,14 +16,14 @@ import java.util.Map;
 public class UnitController {
 
     @Autowired
-    UnitRepository repository;
+    private UnitService service;
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id) {
 
         Unit unit = new Unit();
         unit.setId(Integer.parseInt(id));
-        repository.delete(unit);
+        this.service.delete(unit);
 
         return "redirect:/hello";
     }
@@ -31,7 +31,7 @@ public class UnitController {
     @GetMapping("/update/{id}")
     public String getUnitForUpdate(@PathVariable("id") String id,
                                    Map<String, Object> model) {
-        Unit unit = this.repository.findUnitById(Integer.parseInt(id));
+        Unit unit = this.service.findUnitById(Integer.parseInt(id));
         model.put("unit", unit);
         return "update";
     }
@@ -44,13 +44,13 @@ public class UnitController {
                          @RequestParam String description,
                          @RequestParam Boolean activ) {
 
-        Unit unit = this.repository.findUnitById(Integer.parseInt(id));
+        Unit unit = this.service.findUnitById(Integer.parseInt(id));
         unit.setName(name);
         unit.setCount(count);
         unit.setPassword(password);
         unit.setDescription(description);
         unit.setIsactive(activ);
-        repository.save(unit);
+        this.service.save(unit);
 
         return "redirect:/hello";
     }

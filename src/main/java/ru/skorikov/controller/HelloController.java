@@ -1,15 +1,12 @@
 package ru.skorikov.controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skorikov.domain.Unit;
-import ru.skorikov.repository.UnitRepository;
 import ru.skorikov.service.UnitService;
-import ru.skorikov.service.UnitServiceIMPL;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,9 +21,7 @@ import java.util.Map;
 public class HelloController {
 
     @Autowired
-    private UnitRepository repository;
-
-    private UnitService service = new UnitServiceIMPL();
+    private UnitService service;
 
     @GetMapping("/")
     public String home() {
@@ -35,7 +30,7 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String units( Map<String, Object> model) {
-        Iterable<Unit> units = repository.findAll();
+        Iterable<Unit> units = this.service.findAll();
         model.put("units", units);
         return "hello";
     }
@@ -55,7 +50,7 @@ public class HelloController {
         Date date = new Date(System.currentTimeMillis());
         unit.setCreatedate(date);
 
-        repository.save(unit);
+        this.service.save(unit);
 
         return "redirect:/hello";
     }
@@ -68,8 +63,8 @@ public class HelloController {
             temp.deleteOnExit();
             file.transferTo(temp);
 
-            List<Unit> list = service.getUnitsList(temp);
-            repository.saveAll(list);
+            List<Unit> list = this.service.getUnitsList(temp);
+            this.service.saveAll(list);
 
             temp.delete();
         }
