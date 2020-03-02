@@ -14,15 +14,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Unit service.
+ */
 @Service
 public class UnitService {
-
+    /**
+     * Unit repository.
+     */
     @Autowired
     private UnitRepository repository;
 
+    /**
+     * Get units list from fale.
+     * @param file file.
+     * @return units list.
+     */
     public List<Unit> getUnitsList(File file) {
         List<Unit> list = new ArrayList<>();
-
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
             String string;
             while ((string = reader.readLine()) != null) {
@@ -37,6 +46,11 @@ public class UnitService {
         return list;
     }
 
+    /**
+     * Create unit from string.
+     * @param string string.
+     * @return unit.
+     */
     private Unit createUnit(String string) {
         Unit unit = new Unit();
         String[] array = string.replaceAll("\"", "").split(";");
@@ -49,22 +63,43 @@ public class UnitService {
         return unit;
     }
 
+    /**
+     * Find all units.
+     * @return units list.
+     */
     public Iterable<Unit> findAll() {
         return this.repository.findAll();
     }
 
+    /**
+     * Save unit.
+     * @param unit unit.
+     */
     public void save(Unit unit) {
         this.repository.save(unit);
     }
 
+    /**
+     * Seve units list.
+     * @param list list.
+     */
     public void saveAll(List<Unit> list) {
         this.repository.saveAll(list);
     }
 
+    /**
+     * Delete unit.
+     * @param unit unit.
+     */
     public void delete(Unit unit) {
         this.repository.delete(unit);
     }
 
+    /**
+     * Find unit by ID.
+     * @param parseInt id.
+     * @return unit.
+     */
     public Unit findUnitById(int parseInt) {
         return this.repository.findUnitById(parseInt);
     }

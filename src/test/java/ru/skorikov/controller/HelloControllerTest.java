@@ -27,19 +27,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-
+/**
+ * Test hello controller.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class HelloControllerTest {
+    /**
+     * Mock Mvc.
+     */
     @Autowired
     private MockMvc mvc;
+    /**
+     * Hello controller.
+     */
     @Autowired
-    HelloController controller;
-
+    private HelloController controller;
+    /**
+     * Unit service.
+     */
     @MockBean
     private UnitService service;
 
+    /**
+     * Test get home page.
+     * @throws Exception exception.
+     */
     @Test
     public void whenGetHomeThenReturnHomePage() throws Exception {
         assertThat(mvc).isNotNull();
@@ -51,6 +65,10 @@ public class HelloControllerTest {
                 );
     }
 
+    /**
+     * Test home page? return all units.
+     * @throws Exception exception.
+     */
     @Test
     public void whenGetHelloPagaThenReturnUnits() throws Exception {
         Unit unit = new Unit();
@@ -70,6 +88,10 @@ public class HelloControllerTest {
                 );
     }
 
+    /**
+     * Test add unit and redirect home page.
+     * @throws Exception exception.
+     */
     @Test
     public void whenAddUnitThenRedirectHome() throws Exception {
         this.mvc.perform(post("/hello")
@@ -82,6 +104,10 @@ public class HelloControllerTest {
                 .andExpect(view().name("redirect:/hello"));
     }
 
+    /**
+     * Test add unit fron file.
+     * @throws Exception exception.
+     */
     @Test
     public void addFromFile() throws Exception {
         Unit unit = new Unit();

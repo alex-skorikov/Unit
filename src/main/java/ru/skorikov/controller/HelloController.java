@@ -1,4 +1,5 @@
 package ru.skorikov.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,27 +20,50 @@ import java.util.Map;
  */
 @Controller
 public class HelloController {
-
+    /**
+     * Unit service.
+     */
     @Autowired
     private UnitService service;
 
+    /**
+     * Get home page.
+     *
+     * @return homepage.
+     */
     @GetMapping("/")
     public String home() {
         return "home";
     }
 
+    /**
+     * Get all units on hello page.
+     *
+     * @param model response model.
+     * @return hello page.
+     */
     @GetMapping("/hello")
-    public String units( Map<String, Object> model) {
+    public String units(Map<String, Object> model) {
         Iterable<Unit> units = this.service.findAll();
         model.put("units", units);
         return "hello";
     }
 
+    /**
+     * Add new unit.
+     *
+     * @param name        unit name.
+     * @param count       unit count.
+     * @param password    uit password.
+     * @param description unit description.
+     * @param model       response model.
+     * @return redirect hello page.
+     */
     @PostMapping("/hello")
     public String add(@RequestParam String name,
                       @RequestParam Integer count,
                       @RequestParam String password,
-                      @RequestParam String description, Map<String, Object> model){
+                      @RequestParam String description, Map<String, Object> model) {
 
         Unit unit = new Unit();
         unit.setName(name);
@@ -55,6 +79,13 @@ public class HelloController {
         return "redirect:/hello";
     }
 
+    /**
+     * Load units from file.
+     *
+     * @param file file.
+     * @return rediect helo page.
+     * @throws IOException exception.
+     */
     @PostMapping("/file")
     public String addFromFile(@RequestParam("file") MultipartFile file) throws IOException {
         if (!(file == null)) {

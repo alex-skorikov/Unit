@@ -18,21 +18,35 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-
+/**
+ * Test unit controller.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UnitControllerTest {
+    /**
+     * Mock mvc.
+     */
     @Autowired
     private MockMvc mvc;
+    /**
+     * Controller.
+     */
     @Autowired
-    UnitController controller;
-
+    private UnitController controller;
+    /**
+     * Unit service.
+     */
     @MockBean
     private UnitService service;
+
+    /**
+     * Test delete unit.
+     * @throws Exception exception.
+     */
     @Test
     public void delete() throws Exception {
         assertThat(mvc).isNotNull();
@@ -42,6 +56,10 @@ public class UnitControllerTest {
                 .andExpect(view().name("redirect:/hello"));
     }
 
+    /**
+     * Test get unit for update.
+     * @throws Exception exception.
+     */
     @Test
     public void getUnitForUpdate() throws Exception {
         Unit unit = new Unit();
@@ -58,6 +76,10 @@ public class UnitControllerTest {
                 .andExpect(view().name("update"));
     }
 
+    /**
+     * Test update unit and redirect /home.
+     * @throws Exception exception.
+     */
     @Test
     public void update() throws Exception {
         Unit unit = new Unit();
