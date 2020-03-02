@@ -4,8 +4,8 @@ cache:
   directories:
   - $HOME/.m2
 
-export CODECOV_TOKEN="token"
 after_success:
+  export CODECOV_TOKEN="token"
 - bash <(curl -s https://codecov.io/bash)
 
 notifications:
